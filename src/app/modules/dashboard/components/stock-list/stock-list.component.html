@@ -1,0 +1,4 @@
+<app-stock-card
+  *ngFor="let trackedStock of stockService.trackedStocks$ | async"
+  [stockSymbol]="trackedStock"
+></app-stock-card>

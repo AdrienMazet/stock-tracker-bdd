@@ -1,0 +1,50 @@
+.card {
+  margin: 15px 0px;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-heading-text {
+  margin: 0;
+}
+
+.remove-button {
+  width: 40px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(255, 0, 0, 0.911);
+}
+
+.card-content {
+  display: grid;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: space-between;
+  grid-template-columns: repeat(3, 200px);
+}
+
+.current-trend-arrow {
+  height: 50px;
+  grid-row: span 2;
+}
+
+.details-link {
+  padding: 7.5px;
+  color: black;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: lightblue;
+}
+
+.loading-text {
+  text-align: center;
+}

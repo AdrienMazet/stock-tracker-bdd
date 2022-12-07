@@ -1,0 +1,14 @@
+<div class="sentiment-container" *ngIf="sentiment; else noData">
+  <div>
+    <p>{{ sentiment.month | uppercase }}</p>
+    <p>
+      Change: {{ sentiment.change > 0 ? '+' : ''
+      }}{{ sentiment.change | number }}
+    </p>
+    <p>MSPR: {{ sentiment.mspr | number: '1.2-2' }}</p>
+  </div>
+  <img src="{{ sentiment.change | arrow }}" class="sentiment-trend" />
+</div>
+<ng-template #noData>
+  <p class="no-data-text">No data for other months</p>
+</ng-template>

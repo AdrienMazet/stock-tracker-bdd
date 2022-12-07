@@ -1,0 +1,41 @@
+<div class="card">
+  <div *ngIf="stock$ | async as stock; else loading">
+    <div class="card-header">
+      <h2 class="card-heading-text">
+        {{ stock.name ?? 'No stock found for stock symbol' }} ({{
+          stock.symbol
+        }})
+      </h2>
+      <button
+        class="remove-button"
+        id="remove{{ stock.symbol }}"
+        (click)="stockService.removeTrackedStock(stockSymbol)"
+      >
+        X
+      </button>
+    </div>
+    <div class="card-content" *ngIf="stock.name">
+      <p>
+        Change today : {{ stock.percentOfChange > 0 ? '+' : ''
+        }}{{ stock.percentOfChange | percent }}
+      </p>
+      <p>Current price : {{ stock.currentPrice | currency }}</p>
+      <img
+        class="current-trend-arrow"
+        src="{{ stock.percentOfChange | arrow }}"
+      />
+      <p>Opening price : {{ stock.openingPrice | currency }}</p>
+      <p>High price : {{ stock.highPrice | currency }}</p>
+      <a
+        id="sentiment{{ stock.symbol }}"
+        class="details-link"
+        [routerLink]="['/sentiment/', stock.symbol]"
+      >
+        Go to social sentiment details >
+      </a>
+    </div>
+  </div>
+  <ng-template #loading>
+    <p class="loading-text">Loading {{ stockSymbol }} stock data</p>
+  </ng-template>
+</div>

@@ -1,0 +1,23 @@
+<div class="card">
+  <div *ngIf="stock$ | async as stock; else loading">
+    <div class="card-header">
+      <h2 class="card-heading-text">
+        {{ stock.name ?? 'No stock found for stock symbol' }} ({{
+          stock.symbol
+        }})
+      </h2>
+    </div>
+    <div *ngIf="stock.name" class="card-content">
+      <app-month-sentiment
+        *ngFor="let sentiment of stock.sentiments"
+        [sentiment]="sentiment"
+      ></app-month-sentiment>
+    </div>
+  </div>
+  <ng-template #loading>
+    <p class="loading-text">Loading {{ stockSymbol }} stock data</p>
+  </ng-template>
+</div>
+<button id="backBtn" class="back-button" [routerLink]="'/'">
+  < Back to list of stocks
+</button>

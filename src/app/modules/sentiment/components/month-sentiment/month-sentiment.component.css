@@ -1,0 +1,20 @@
+.sentiment-container {
+  display: flex;
+  align-items: center;
+}
+
+.sentiment-trend {
+  height: 50px;
+  padding: 0px 35px;
+}
+
+.no-data-text {
+  color: orange;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid orange;
+  border-radius: 15px;
+  padding: 40px 15px;
+  max-width: 100px;
+}
