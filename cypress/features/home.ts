@@ -1,13 +1,8 @@
 import { When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
-When('I visit duckduckgo.com', () => {
-  cy.visit('https://www.duckduckgo.com');
+When('I visit the stock tracker home page', () => {
+  cy.visit('http://localhost:4200');
 });
-
-Then('I should see a search bar', () => {
-  cy.get('input').should(
-    'have.attr',
-    'placeholder',
-    'Search the web without being tracked'
-  );
+Then('I should see the name of the application', () => {
+  cy.get('h1').should('have.text', 'STOCK TRACKER');
 });
