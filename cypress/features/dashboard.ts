@@ -1,30 +1,53 @@
 import { Given, Then, When } from '@badeball/cypress-cucumber-preprocessor';
 
-// check that list can display many items
 // check that each card display title + stock symbol change, opening price, current price, high price
 // check that each card as an arrow corresponding to change
-// check that each card as a delete button that remove the card when clicked
 // check that each card as a go to ... button that redirects to correct URL
+Given('that I track many stocks', async () => {
+  cy.window().then((window) =>
+    window.localStorage.setItem(
+      'STOCKS',
+      JSON.stringify(['TSLA', 'GOOGL', 'AAPL'])
+    )
+  );
+});
+Given('that I track {string} stock', async (stockSymbol) => {
+  cy.window().then((window) =>
+    window.localStorage.setItem('STOCKS', JSON.stringify([stockSymbol]))
+  );
+});
 
-Given(
-  'that I track {string}, {string} and {string} stocks',
-  async (stock1, stock2, stock3) => {
-    cy.window().then((window) =>
-      window.localStorage.setItem(
-        'STOCKS',
-        JSON.stringify([stock1, stock2, stock3])
-      )
-    );
-  }
-);
 When('I visit the stock tracker home page', () => {
   cy.visit('http://localhost:4200');
 });
+
+When(
+  'I click the button to remove the stock {string} from tracked stocks',
+  (stockSymbol) => {
+    cy.get(`#remove${stockSymbol}`).click();
+  }
+);
+
+Then('I should see cards for the stocks I track', () => {
+  cy.get('#cardTSLA').should('be.visible');
+  cy.get('#cardGOOGL').should('be.visible');
+  cy.get('#cardAAPL').should('be.visible');
+});
+
+Then('I should see a card for stock {string}', (stockSymbol) => {
+  cy.get(`#card${stockSymbol}`).should('be.visible');
+});
+
 Then(
-  'I should see cards for {string}, {string} and {string} stocks',
-  (stock1, stock2, stock3) => {
-    cy.get('.card-heading-text').should('contain.text', stock1);
-    cy.get('.card-heading-text').should('contain.text', stock2);
-    cy.get('.card-heading-text').should('contain.text', stock3);
+  'I should see within the card a button to remove stock {string} from tracked stocks',
+  (stockSymbol) => {
+    cy.get(`#remove${stockSymbol}`).should('be.visible');
+  }
+);
+
+Then(
+  'The card for the stock {string} should be removed from the dashboard',
+  (stockSymbol: string) => {
+    cy.get(`card${stockSymbol}`).should('not.exist');
   }
 );
